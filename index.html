@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liverpool Preseason Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #C8102E 0%, #8B0000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .countdown-container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, #C8102E, #FFD700);
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .club-name {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .league-celebration {
+            font-size: 1em;
+            margin-bottom: 10px;
+            color: #FFD700;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-title {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .days-container {
+            margin: 30px 0;
+        }
+        
+        .days-number {
+            font-size: 4.5em;
+            font-weight: bold;
+            display: block;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .days-label {
+            font-size: 1.4em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.9;
+            font-weight: bold;
+        }
+        
+        .message {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.9;
+            color: #FFD700;
+        }
+        
+        .ynwa {
+            margin-top: 20px;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 480px) {
+            .countdown-container {
+                padding: 30px 20px;
+            }
+            
+            .club-name {
+                font-size: 1.8em;
+            }
+            
+            .days-number {
+                font-size: 3.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="club-name">LIVERPOOL FC</div>
+        <div class="league-celebration">🏆 LEAGUE CHAMPIONS 🏆</div>
+        <div class="event-title">Preseason Training Begins</div>
+        <div class="event-title">July 8, 2025</div>
+        
+        <div class="days-container">
+            <span class="days-number" id="days">0</span>
+            <div class="days-label">Days to Go</div>
+        </div>
+        
+        <div class="message" id="message">The Reds return soon!</div>
+        <div class="ynwa">YOU'LL NEVER WALK ALONE</div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date('2025-07-08T00:00:00');
+            const now = new Date();
+            const timeDifference = targetDate - now;
+            
+            if (timeDifference > 0) {
+                const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                document.getElementById('days').textContent = days;
+                
+                if (days === 1) {
+                    document.querySelector('.days-label').textContent = 'Day to Go';
+                    document.getElementById('message').textContent = 'Training starts tomorrow!';
+                } else if (days <= 7) {
+                    document.getElementById('message').textContent = 'The squad returns very soon!';
+                } else if (days <= 14) {
+                    document.getElementById('message').textContent = 'Just two weeks until training!';
+                } else if (days <= 30) {
+                    document.getElementById('message').textContent = 'Preseason approaching fast!';
+                } else {
+                    document.getElementById('message').textContent = 'The Reds return soon!';
+                }
+            } else {
+                document.getElementById('days').textContent = '0';
+                document.querySelector('.days-label').textContent = 'Training Day!';
+                document.getElementById('message').textContent = 'Up the Reds! 🔴';
+            }
+        }
+        
+        // Update immediately and then every hour
+        updateCountdown();
+        setInterval(updateCountdown, 3600000); // Update every hour
+    </script>
+</body>
+</html>
